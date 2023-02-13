@@ -47,19 +47,9 @@
 </template>
 
 <script setup lang="ts">
-const query = gql`
-  query {
-    categoryList {
-      name
-      children {
-        id
-        name
-      }
-    }
-  }
-`
+import Navigation from '~~/graphql/queries/Navigation'
 
-const { data } = await useAsyncQuery<any>(query)
+const { data } = await useAsyncQuery<any>(Navigation)
 
 const categories = computed(() => data.value.categoryList[0].children)
 </script>

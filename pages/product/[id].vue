@@ -198,23 +198,11 @@
 </template>
 
 <script setup lang="ts">
-const query = gql`
-  query ($id: String!) {
-    products(filter: { id: { eq: $id } }) {
-      items {
-        id
-        name
-        thumbnail {
-          url
-        }
-      }
-    }
-  }
-`
+import ProductDetail from '~~/graphql/queries/ProductDetail'
 
 const route = useRoute()
 
-const { data } = await useAsyncQuery<any>(query, { id: route.params.id })
+const { data } = await useAsyncQuery<any>(ProductDetail, { id: route.params.id })
 
 const product = computed(() => data.value.products.items[0])
 </script>

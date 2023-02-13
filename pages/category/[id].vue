@@ -11,37 +11,11 @@
 </template>
 
 <script setup lang="ts">
-const query = gql`
-  query ($id: String!) {
-    categoryList(filters: { ids: { eq: $id } }) {
-      id
-      name
-      products {
-        items {
-          id
-          name
-          thumbnail {
-            url
-          }
-          categories {
-            name
-          }
-          price_range {
-            minimum_price {
-              final_price {
-                value
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
+import CategoryDetail from '~~/graphql/queries/CategoryDetail'
 
 const route = useRoute()
 
-const { data } = await useAsyncQuery<any>(query, { id: route.params.id })
+const { data } = await useAsyncQuery<any>(CategoryDetail, { id: route.params.id })
 
 const category = computed(() => data.value.categoryList[0])
 </script>
